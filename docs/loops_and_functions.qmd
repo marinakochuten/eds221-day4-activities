@@ -1,0 +1,70 @@
+---
+title: "Loops and functions"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+# Task 1
+```{r}
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+transects <- c("Transect A", "Transect B", "Transect C")
+
+my_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+for (i in seq_along(weekdays)) {
+  for (j in seq_along(transects)) {
+    my_matrix[i,j] <- return(paste(weekdays[i], "-", transects[j]))
+  }
+}
+```
+
+# Task 2
+```{r}
+force <- function(mass, acceleration) {
+  F <- mass * acceleration
+  print(paste("The resulting force is", F, "Newtons."))
+}
+
+force(5, 10)
+```
+
+# Task 3
+```{r}
+library(tidyverse)
+fish_parms <- data.frame(sci_name = c("Chanos chanos",
+                                      "Sphyraena barracuda",
+                                      "Caranx ignobilis"),
+                         common_name = c("Milkfish",
+                                         "Great barracuda",
+                                         "Giant trevally"),
+                         a_est = c(0.0905,
+                                   0.0181,
+                                   0.0353),
+                         b_est = c(2.52,
+                                   3.27,
+                                   3.05))
+
+
+fish_weight <- function(fish_name, tot_length) {
+  fish_select <- filter(fish_parms, common_name == fish_name)
+  W = fish_select$a_est * (tot_length^fish_select$b_est)
+  print(W)
+}
+
+fish_weight("Milkfish", 10)
+
+length_vec <- vector()
+```
+
+
+
+
+
+
+
+
+
+
+
+
