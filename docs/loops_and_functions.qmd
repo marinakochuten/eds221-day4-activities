@@ -14,7 +14,7 @@ my_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
 
 for (i in seq_along(weekdays)) {
   for (j in seq_along(transects)) {
-    my_matrix[i,j] <- return(paste(weekdays[i], "-", transects[j]))
+    my_matrix[i,j] <- print(paste(weekdays[i], "-", transects[j]))
   }
 }
 ```
@@ -48,13 +48,53 @@ fish_parms <- data.frame(sci_name = c("Chanos chanos",
 
 fish_weight <- function(fish_name, tot_length) {
   fish_select <- filter(fish_parms, common_name == fish_name)
-  W = fish_select$a_est * (tot_length^fish_select$b_est)
+  W <- fish_select$a_est * (tot_length^fish_select$b_est)
   print(W)
 }
 
-fish_weight("Milkfish", 10)
+fish_weight("Great barracuda", 10)
 
-length_vec <- vector()
+length_vec <- seq(from = 0, to = 100, by = 1)
+milkfish_weights <- fish_weight("Milkfish", length_vec)
+```
+
+# Task 4
+
+```{r}
+wave_power <- function(height, period) {
+  P <- 0.5 * (height^2) * period 
+  print(P)
+}
+
+wave_height_vec <- seq(from = 0, to = 3, by = 0.2)
+wave_power(wave_height_vec, 8)
+```
+
+# Task 5 (optional)
+
+```{r}
+approx_wave_power <- function(depth, height, period) {
+  
+  if (depth < 0) {
+    stop("depth cannot be a negative number")
+  }
+  
+  if (depth > 12) {
+    
+    message("depth > 12, deep water equation used")
+    
+    print(0.5 * (height^2) * period)
+    
+  } else if (depth <= 12) {
+    
+    message("depth <= 12, shallow water equation used")
+    
+    print(0.81 * (height^2) * period)
+  }
+}
+
+approx_wave_power(depth = -2, height = 1, period = 1)
+  
 ```
 
 
